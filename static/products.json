@@ -1,0 +1,117 @@
+[
+  {
+    "productName": "Ralph Lauren Polo T-shirt",
+    "description": "This men's polo t-shirt is built to handle the toughest WODs. It's made with Speedwick fabric that sweeps moisture away from your skin. Batwing sleeves give you room to move on the overhead press or pull-ups. The tee is cut slim for a distraction-free fit.",
+    "brand": "Ralph Lauren",
+    "sizes": ["s", "m", "l", "xl"],
+    "colors": [
+      {
+        "value": "#cbbde6",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551778619/products/ralph%20lauren/ralph_loren_polo_tshirt.jpg"
+      },
+      {
+        "value": "#c6dde6",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551778619/products/ralph%20lauren/imgonline-com-ua-ReplaceColor-lPDFsvIAnW7_1.jpg"
+      },
+      {
+        "value": "#ece7c5",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551778619/products/ralph%20lauren/imgonline-com-ua-ReplaceColor-QpvMqXE3heOPGT_1.jpg"
+      }
+    ],
+    "category": "male",
+    "quantity": 10,
+    "price": 200
+  },
+  {
+    "productName": "Oneill Shorts",
+    "description": "These women's training shorts are designed to make max effort just a little more comfortable. They're made with moisture-wicking Speedwick fabric to help you stay cool and dry.",
+    "brand": "Oneill",
+    "sizes": ["s", "m", "l"],
+    "colors": [
+      {
+        "value": "#87ddee",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551787503/products/nike_female_casual_shorts.jpg"
+      }
+    ],
+    "category": "female",
+    "quantity": 12,
+    "price": 60
+  },
+  {
+    "productName": "Nike Sports Suit",
+    "description": "Pull on these easy-to-wear men's sportsuit to get to and from the box on chilly days. It's made of with sweat-wicking Speedwick fabric for dry comfort. The soft knit build gives you a cozy feel.",
+    "brand": "Nike",
+    "sizes": ["s", "m", "l", "xl"],
+    "colors": [
+      {
+        "value": "#171717",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551788949/products/cba0707c66f3b196408f9bf6e92cc460--knt-nike.jpg"
+      }
+    ],
+    "category": "male",
+    "quantity": 5,
+    "price": 945
+  },
+  {
+    "productName": "Columbia Cycling T-shirt",
+    "description": "For the cycler who is always on the go. This men's slim-fitting crewneck t-shirt is made with Speedwick fabric that moves sweat away from your skin. A reflective logo on the front flashes Columbia style.",
+    "brand": "Columbia",
+    "sizes": ["s", "m", "l"],
+    "colors": [
+      {
+        "value": "#39b3cd",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551788586/products/columbia%20cycling/cycling-t-shirt.jpg"
+      },
+      {
+        "value": "#cbb61d",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551788586/products/columbia%20cycling/imgonline-com-ua-ReplaceColor-2ALZPzKjnH2BEb_jfv7ck.jpg"
+      },
+      {
+        "value": "#139d1a",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551788586/products/columbia%20cycling/imgonline-com-ua-ReplaceColor-5FRCXSHjvGW_t1qyqz.jpg"
+      },
+      {
+        "value": "#af1515",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551788586/products/columbia%20cycling/imgonline-com-ua-ReplaceColor-lqHglZzFnl_asnmkh.jpg"
+      },
+      {
+        "value": "#8a2dbd",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551788586/products/columbia%20cycling/imgonline-com-ua-ReplaceColor-2226msVRWyd3_ktk2ed.jpg"
+      }
+    ],
+    "category": "male",
+    "quantity": 15,
+    "price": 150
+  },
+  {
+    "productName": "Nike Sports Top",
+    "description": "As versatile as your workout routine, this sports bra adapts to your needs. The supportive construction adds stability in the studio whether you're climbing hills or throwing combos. Made with a sweat-wicking, fast-drying design.",
+    "brand": "Nike",
+    "sizes": ["xs", "s", "m", "l"],
+    "colors": [
+      { 
+        "value": "#aae7a8",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551789403/products/Nike%20sports%20top/sport-top.jpg"
+      },
+      { 
+        "value": "#b5b7e1",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551789403/products/Nike%20sports%20top/SportTopBlue_wdk59t.jpg"
+      },
+      { 
+        "value": "#b6b5b6",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551789403/products/Nike%20sports%20top/SportTopGray_qvnatp.jpg"
+      },
+      { 
+        "value": "#a9cdda",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551789403/products/Nike%20sports%20top/SportTopLightBlue_ru4o47.jpg"
+      },
+      { 
+        "value": "#caabdc",
+        "url": "https://res.cloudinary.com/sofimat/image/upload/v1551789404/products/Nike%20sports%20top/SportTopPurple_njdfj6.jpg"
+      }
+    ],
+    "category": "female",
+    "quantity": 9,
+    "price": 90
+  }
+]
