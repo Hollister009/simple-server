@@ -10,10 +10,11 @@
   "keywords": [
     "node",
     "express",
-    "mongoose"
+    "mongoose",
+    "mongodb"
   ],
   "engines": {
-    "node": "10.x"
+    "node": ">=10.x"
   },
   "private": true,
   "dependencies": {
