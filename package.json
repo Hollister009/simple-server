@@ -1,22 +1,34 @@
 {
   "name": "simple-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Simple REST server using express and mongoose",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "keywords": [],
+  "keywords": [
+    "node",
+    "express",
+    "mongoose"
+  ],
+  "engines": {
+    "node": "10.x"
+  },
   "private": true,
-  "author": "Andrew Zhukevych",
-  "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.7.1",
     "morgan": "^1.9.1"
   },
   "devDependencies": {
+    "dotenv": "^8.1.0",
     "nodemon": "^1.19.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hollister009/simple-server"
+  },
+  "author": "Andrew Zhukevych",
+  "license": "ISC"
 }
