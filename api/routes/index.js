@@ -1,10 +1,12 @@
 const router = require('express').Router();
-const getMockedProducts = require('../controllers').getMockedProducts;
+const controllers = require('../controllers');
+const { getMockedProducts, createProduct } = controllers;
 
 router.get('/', (req, res) => {
   res.send('Server works fine!');
 });
 
-router.get('/products', getMockedProducts);
+router.post('/products', createProduct);
+router.get('/products/mock', getMockedProducts);
 
 module.exports = router;

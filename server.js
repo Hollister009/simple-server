@@ -1,4 +1,5 @@
 const path = require('path');
+const cors = require('cors');
 const express = require('express');
 // mongodb connection & env variables
 require('./db');
@@ -10,7 +11,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 const staticDir = path.resolve('static');
 
-app.use(express.static(staticDir));
-app.use(router);
+app.use(cors())
+  .use(express.json())
+  .use(express.static(staticDir))
+  .use(express.urlencoded({ extended:false }))  
+  .use(router);
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));

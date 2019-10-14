@@ -19,11 +19,32 @@ const fetchProducts = () => {
   }
 };
 
-// TODO: Create route to add New Products
-const createProduct = (req, res) => {
-  const product = new Product({});
+// POST method
+const createProduct = async (req, res) => {
+  const product = new Product({
+    productName: req.body.name,
+    description: req.body.description,
+    brand: req.body.brand,
+    sizes: req.body.sizes,
+    colors: req.body.colors,
+    images: req.body.images,
+    sex: req.body.sex,
+    category: req.body.category,
+    season: req.body.season,
+    quantity: req.body.quantity,
+    price: req.body.price,
+    video: req.body.video
+  });
+
+  try {
+    const newProduct = await product.save();
+    res.status(201).json(newProduct);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 }
 
 module.exports = {
-  getMockedProducts
+  getMockedProducts,
+  createProduct
 };
