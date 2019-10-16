@@ -4,18 +4,27 @@ const Product = require('../models/product');
 
 // Mocked Data
 const getMockedProducts = (req, res) => {
+  const fetchProducts = () => {
+    const filePath = path.resolve('static','products.json');
+    const encoding = 'utf-8';
+  
+    try {
+      const products = fs.readFileSync(filePath, encoding);
+      return JSON.parse(products);
+    } catch (e) {
+      return { message: e };
+    }
+  };
   res.status(200).json(fetchProducts());
 };
 
-const fetchProducts = () => {
-  const filePath = path.resolve('static','products.json');
-  const encoding = 'utf-8';
-
+// GET method
+const getAllProducts = async (req, res) => {
   try {
-    const products = fs.readFileSync(filePath, encoding);
-    return JSON.parse(products);
+    const products = await Product.find({}).exec();
+    res.json(products);
   } catch (e) {
-    return { message: e };
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -46,5 +55,6 @@ const createProduct = async (req, res) => {
 
 module.exports = {
   getMockedProducts,
-  createProduct
+  createProduct,
+  getAllProducts
 };
