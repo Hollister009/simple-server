@@ -34,13 +34,15 @@ const createProduct = async (req, res) => {
     productName: req.body.name,
     description: req.body.description,
     brand: req.body.brand,
+    category: req.body.category,
     sizes: req.body.sizes,
     colors: req.body.colors,
-    images: req.body.images,
-    sex: req.body.sex,
-    category: req.body.category,
+    genders: req.body.genders,
     season: req.body.season,
+    images: req.body.images,
+    collection: req.body.collection,
     quantity: req.body.quantity,
+    sellCount: req.body.sellCount,
     price: req.body.price,
     video: req.body.video
   });

@@ -11,34 +11,22 @@ const collectionSchema = new mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
-  productName: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  brand: {
-    type: String,
-    required: true
-  },
+  productName: { type: String, required: true },
+  description: { type: String, required: true },
+  brand: { type: String, required: true },
+  category: { type: String, required: true },
   sizes: [String],
   colors: [String],
+  genders: [String],
+  season: [String],
   images: [imageSchema],
   collection: [collectionSchema],
-  genders: [String],
-  category: String,
-  season: [String],
-  quantity: Number,
-  sellCount: Number,
-  price: Number,
-  createdAt: Date,
-  updatedAt: Date,
-  video: {
-    type: String,
-    required: false
-  }
+  quantity: { type: Number, default: 1 },
+  sellCount: { type: Number, default: 0 },
+  price: { type: Number, default: 1 },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+  video: { type: String, required: false }
 });
 
 
