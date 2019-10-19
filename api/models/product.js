@@ -20,7 +20,7 @@ const productSchema = new mongoose.Schema({
   genders: [String],
   season: [String],
   images: [imageSchema],
-  collection: [collectionSchema],
+  productCollections: [collectionSchema],
   quantity: { type: Number, default: 1 },
   sellCount: { type: Number, default: 0 },
   price: { type: Number, default: 1 },
