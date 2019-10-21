@@ -3,6 +3,7 @@ const cors = require('cors');
 const express = require('express');
 const morgan = require('morgan');
 // mongodb connection & env variables
+process.env.NODE_ENV !== 'production' && require('dotenv').config();
 require('./db');
 
 const router = require('./api/routes');
