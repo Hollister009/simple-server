@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
-
 const { NODE_ENV, MONGODB_LOCAL, MONGODB_REMOTE } = process.env;
+
+NODE_ENV !== 'production' && require('dotenv').config();
 const db_uri = NODE_ENV === 'production' ? MONGODB_REMOTE : MONGODB_LOCAL;
 
 mongoose.connect(db_uri, { useNewUrlParser: true, useUnifiedTopology: true });

@@ -4,7 +4,6 @@ const express = require('express');
 const morgan = require('morgan');
 // mongodb connection & env variables
 require('./db');
-require('dotenv').config();
 
 const router = require('./api/routes');
 const app = express();
