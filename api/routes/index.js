@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const controllers = require('../controllers');
-const { getMockedProducts, createProduct, getAllProducts, findProductById, getProduct } = controllers;
+const {
+  getMockedProducts, createProduct, getAllProducts, findProductById, getProduct
+} = require('../controllers/products.controller');
 const { getBrands } = require('../controllers/brands.controller');
 
 router.get('/', (req, res) => {

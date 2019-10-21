@@ -1,7 +1,7 @@
 // @ts-check
 const fs = require('fs');
 const path = require('path');
-const Product = require('../models/product');
+const { Products } = require('../models/products.model');
 
 // Mocked Data
 const getMockedProducts = (req, res) => {
@@ -26,21 +26,25 @@ const getProduct = (req, res) => {
 
 // POST method
 const createProduct = async (req, res) => {
-  const product = new Product({
-    productName: req.body.name,
-    description: req.body.description,
-    brand: req.body.brand,
-    category: req.body.category,
-    sizes: req.body.sizes,
-    colors: req.body.colors,
-    genders: req.body.genders,
-    season: req.body.season,
-    images: req.body.images,
-    productCollections: req.body.collections,
-    quantity: req.body.quantity,
-    sellCount: req.body.sellCount,
-    price: req.body.price,
-    video: req.body.video
+  const {
+    title, description, brandId, category, sizes, colors, genders, seasons, imageIds, collectionIds, quantity, sellCount, price, video
+  } = req.body;
+
+  const product = new Products({
+    title,
+    description,
+    brandId,
+    category,
+    sizes,
+    colors,
+    genders,
+    seasons,
+    imageIds,
+    collectionIds,
+    quantity,
+    sellCount,
+    price,
+    video
   });
 
   try {
@@ -54,7 +58,7 @@ const createProduct = async (req, res) => {
 // GET method
 const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find({}).exec();
+    const products = await Products.find({}).exec();
     res.json(products);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -66,7 +70,7 @@ async function findProductById(req, res, next) {
   const { id } = req.params;
 
   try {
-    product = await Product.findById(id).exec();
+    product = await Products.findById(id).exec();
 
     if (product === null) {
       return res.status(400).json({ message: 'Product not found'})
