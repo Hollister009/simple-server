@@ -55,11 +55,33 @@ const createProduct = async (req, res) => {
   }
 };
 
+// DELETE method
+const removeProduct = async (req, res) => {
+  const { product } = req;
+
+  try {
+    const deletedProduct = await product.remove();
+    res.status(200).json(deletedProduct);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 // GET method
 const getAllProducts = async (req, res) => {
   try {
     const products = await Products.find({}).exec();
     res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// DELETE method
+const removeAllProducts = async (req, res) => {
+  try {
+    await Products.collection.drop();
+    res.status(200).json({ message: 'Products collection was cleared!' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -85,8 +107,10 @@ async function findProductById(req, res, next) {
 
 module.exports = {
   getProduct,
-  getMockedProducts,
+  removeProduct,
   createProduct,
   getAllProducts,
-  findProductById
+  findProductById,
+  removeAllProducts,
+  getMockedProducts
 };
