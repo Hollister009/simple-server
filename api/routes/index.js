@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const {
-  getMockedProducts,
+  getProduct,
   createProduct,
+  removeProduct,
+  getMockedProducts,
   getAllProducts,
   findProductById,
-  getProduct,
   removeAllProducts
 } = require('../controllers/products.controller');
 const { getBrands } = require('../controllers/brands.controller');
@@ -20,6 +21,7 @@ router.route('/products')
   
   router.get('/products/mock', getMockedProducts);
   router.get('/products/:id', findProductById, getProduct);
+  router.delete('/products/:id', findProductById, removeProduct);
 
 router.get('/brands', getBrands);
 

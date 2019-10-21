@@ -55,6 +55,18 @@ const createProduct = async (req, res) => {
   }
 };
 
+// DELETE method
+const removeProduct = async (req, res) => {
+  const { product } = req;
+
+  try {
+    const deletedProduct = await product.remove();
+    res.status(200).json(deletedProduct);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 // GET method
 const getAllProducts = async (req, res) => {
   try {
@@ -95,9 +107,10 @@ async function findProductById(req, res, next) {
 
 module.exports = {
   getProduct,
-  getMockedProducts,
+  removeProduct,
   createProduct,
   getAllProducts,
   findProductById,
-  removeAllProducts
+  removeAllProducts,
+  getMockedProducts
 };
