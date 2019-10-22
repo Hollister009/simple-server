@@ -8,7 +8,7 @@ const {
   findProductById,
   removeAllProducts
 } = require('../controllers/products.controller');
-const { getBrands } = require('../controllers/brands.controller');
+const { getBrands, createBrand } = require('../controllers/brands.controller');
 
 router.get('/', (req, res) => {
   res.send('Server works fine!');
@@ -19,10 +19,12 @@ router.route('/products')
   .get(getAllProducts)
   .delete(removeAllProducts);
   
-  router.get('/products/mock', getMockedProducts);
-  router.get('/products/:id', findProductById, getProduct);
-  router.delete('/products/:id', findProductById, removeProduct);
+router.get('/products/mock', getMockedProducts);
+router.get('/products/:id', findProductById, getProduct);
+router.delete('/products/:id', findProductById, removeProduct);
 
-router.get('/brands', getBrands);
+router.route('/brands')
+  .post(createBrand)
+  .get(getBrands);
 
 module.exports = router;
