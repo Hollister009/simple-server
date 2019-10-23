@@ -5,11 +5,6 @@ const { BRANDS_MODEL } = require('./brands.model');
 
 const PRODUCTS_MODEL = 'Products';
 
-const imagesSchema = new mongoose.Schema({
-  value: String,
-  urls: [String]
-});
-
 const collectionsSchema = new mongoose.Schema({
   title: String,
   season: [String]
