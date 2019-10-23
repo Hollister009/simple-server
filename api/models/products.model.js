@@ -27,10 +27,6 @@ const productsSchema = new mongoose.Schema({
   colors: [String],
   genders: [String],
   seasons: [String],
-  imageIds: [{
-    type: OBJECT_ID,
-    ref: imagesSchema
-  }],
   collectionIds: [{
     type: OBJECT_ID,
     ref: collectionsSchema
