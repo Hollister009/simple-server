@@ -9,7 +9,6 @@ const {
   getMockedProducts,
   getAllProducts,
   findProductById,
-  removeAllProducts
 } = require('../controllers/products.controller');
 const { getBrands, createBrand } = require('../controllers/brands.controller');
 const { createImage } = require('../controllers/images.controller');
@@ -39,8 +38,56 @@ router.get('/api-docs', swaggerUi.setup(swaggerSpec));
  * @swagger
  * definitions:
  *  Product:
+ *    type: object
  *    properties:
- *      title: string
+ *      title:
+ *        type: string
+ *        example: 'Universal shirt'
+ *      description:
+ *        type: string
+ *        example: 'Adopt breathable fabric, soft, lightweight, comfortable to wear.'
+ *      brandId:
+ *        type: string
+ *        example: 'e3sdd4544aa'
+ *      category:
+ *        type: string
+ *        example: 'shirts'
+ *      sizes:
+ *        type: array
+ *        items:
+ *          type: string
+ *        example: ['s', 'm', 'l']
+ *      colors:
+ *        type: array
+ *        items:
+ *          type: string
+ *        example:
+ *          ['#555555', '#87ddee', '#af1515']
+ *      genders:
+ *        type: array
+ *        items:
+ *          type: string
+ *        example: ['man', 'woman']
+ *      seasons:
+ *        type: array
+ *        items:
+ *          type: string
+ *        example: ['spring', 'summer', 'autumn']
+ *      quantity:
+ *        type: integer
+ *        example: 15
+ *      sellCount:
+ *        type: integer
+ *        example: 5
+ *      price:
+ *        type: integer
+ *        example: 100
+ *      createdAt:
+ *        type: string
+ *        format: date-time
+ *      updatedAt:
+ *        type: string
+ *        format: date-time
  */
 
 /**
@@ -62,12 +109,11 @@ router.get('/products', getAllProducts);
  *  post:
  *    description: Create new product
  *    parameters:
- *      - name: product
+ *      - name: body
  *        in: body
  *        description: Created product object
  *        required: true
  *        type: object
- *        example: TODO
  *        schema:
  *          $ref: '#/definitions/Product'
  *    responses:
@@ -78,20 +124,9 @@ router.get('/products', getAllProducts);
  */
 router.post('/products', createProduct);
 
-/**
- * @swagger
- * /products:
- *  delete:
- *    description: Delete all products
- *    responses:
- *      '200':
- *        description: Successful message
- *      '400':
- *        description: Error message
- */
-router.delete('/products', removeAllProducts);
+// router.delete('/products', removeAllProducts);
 
-  
+
 router.get('/products/mock', getMockedProducts);
 router.get('/products/:id', findProductById, getProduct);
 router.delete('/products/:id', findProductById, removeProduct);
