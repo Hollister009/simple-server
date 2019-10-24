@@ -37,6 +37,14 @@ router.get('/api-docs', swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
+ * definitions:
+ *  Product:
+ *    properties:
+ *      title: string
+ */
+
+/**
+ * @swagger
  * /products:
  *  get:
  *    description: Read list of all products
@@ -54,11 +62,14 @@ router.get('/products', getAllProducts);
  *  post:
  *    description: Create new product
  *    parameters:
- *      - name: body
+ *      - name: product
+ *        in: body
  *        description: Created product object
  *        required: true
  *        type: object
  *        example: TODO
+ *        schema:
+ *          $ref: '#/definitions/Product'
  *    responses:
  *      '201':
  *        description: Return newly created product
