@@ -6,7 +6,6 @@ const {
   getProduct,
   createProduct,
   removeProduct,
-  getMockedProducts,
   getAllProducts,
   findProductById,
 } = require('../controllers/products.controller');
@@ -124,12 +123,46 @@ router.get('/products', getAllProducts);
  */
 router.post('/products', createProduct);
 
-// router.delete('/products', removeAllProducts);
-
-
-router.get('/products/mock', getMockedProducts);
+/**
+ * @swagger
+ * /products/{id}:
+ *  get:
+ *    description: Get product by Id
+ *    parameters:
+ *      - name: id
+ *        in: query
+ *        required: true
+ *    responses:
+ *      '200':
+ *        description: Returns the product 
+ *      '400':
+ *        description: Product not found
+ *      '500':
+ *        description: Error message
+ */
 router.get('/products/:id', findProductById, getProduct);
+
+/**
+ * @swagger
+ * /products/{id}:
+ *  delete:
+ *    description: Removes single product
+ *    parameters:
+ *      - name: id
+ *        in: query
+ *        required: true
+ *    responses:
+ *      '200':
+ *        description: Returns deleted product
+ *      '400':
+ *        description: Product not found
+ *      '500':
+ *        description: Error message
+ */
 router.delete('/products/:id', findProductById, removeProduct);
+
+// router.delete('/products', removeAllProducts);
+// router.get('/products/mock', getMockedProducts);
 
 router.route('/brands')
   .post(createBrand)
