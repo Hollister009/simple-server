@@ -1,4 +1,3 @@
-// @ts-check
 const fs = require('fs');
 const path = require('path');
 const { Products } = require('../models/products.model');
@@ -77,16 +76,6 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-// DELETE method
-const removeAllProducts = async (req, res) => {
-  try {
-    await Products.collection.drop();
-    res.status(200).json({ message: 'Products collection was cleared!' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
 async function findProductById(req, res, next) {
   let product;
   const { id } = req.params;
@@ -111,6 +100,5 @@ module.exports = {
   createProduct,
   getAllProducts,
   findProductById,
-  removeAllProducts,
   getMockedProducts
 };
