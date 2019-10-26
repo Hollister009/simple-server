@@ -22,7 +22,7 @@ const options = {
     },
     basePath: '/'
   },
-  apis: ['./api/routes/*.js']
+  apis: ['./api/routes/*.js', './api/models/*.js']
 };
 const swaggerSpec = swaggerJSDoc(options);
 
@@ -30,69 +30,20 @@ router.get('/', (req, res) => {
   res.send('<h2>Server works fine!</h2>');
 });
 
+router.get('/swagger.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+
 router.use('/api-docs', swaggerUi.serve);
 router.get('/api-docs', swaggerUi.setup(swaggerSpec));
 
 /**
  * @swagger
- * definitions:
- *  Product:
- *    type: object
- *    properties:
- *      title:
- *        type: string
- *        example: 'Universal shirt'
- *      description:
- *        type: string
- *        example: 'Adopt breathable fabric, soft, lightweight, comfortable to wear.'
- *      brandId:
- *        type: string
- *        example: 'e3sdd4544aa'
- *      category:
- *        type: string
- *        example: 'shirts'
- *      sizes:
- *        type: array
- *        items:
- *          type: string
- *        example: ['s', 'm', 'l']
- *      colors:
- *        type: array
- *        items:
- *          type: string
- *        example:
- *          ['#555555', '#87ddee', '#af1515']
- *      genders:
- *        type: array
- *        items:
- *          type: string
- *        example: ['man', 'woman']
- *      seasons:
- *        type: array
- *        items:
- *          type: string
- *        example: ['spring', 'summer', 'autumn']
- *      quantity:
- *        type: integer
- *        example: 15
- *      sellCount:
- *        type: integer
- *        example: 5
- *      price:
- *        type: integer
- *        example: 100
- *      createdAt:
- *        type: string
- *        format: date-time
- *      updatedAt:
- *        type: string
- *        format: date-time
- */
-
-/**
- * @swagger
  * /products:
  *  get:
+ *    tags:
+ *      - products
  *    description: Read list of all products
  *    responses:
  *      '200':
@@ -106,6 +57,8 @@ router.get('/products', getAllProducts);
  * @swagger
  * /products:
  *  post:
+ *    tags:
+ *      - products
  *    description: Create new product
  *    parameters:
  *      - name: body
@@ -127,14 +80,16 @@ router.post('/products', createProduct);
  * @swagger
  * /products/{id}:
  *  get:
+ *    tags:
+ *      - products
  *    description: Get product by Id
  *    parameters:
- *      - name: id
- *        in: query
+ *      - in: path
+ *        name: id
  *        required: true
  *    responses:
  *      '200':
- *        description: Returns the product 
+ *        description: A single product
  *      '400':
  *        description: Product not found
  *      '500':
@@ -146,14 +101,16 @@ router.get('/products/:id', findProductById, getProduct);
  * @swagger
  * /products/{id}:
  *  delete:
+ *    tags:
+ *      - products
  *    description: Removes single product
  *    parameters:
- *      - name: id
- *        in: query
+ *      - in: path
+ *        name: id
  *        required: true
  *    responses:
  *      '200':
- *        description: Returns deleted product
+ *        description: Returns removed product
  *      '400':
  *        description: Product not found
  *      '500':
