@@ -5,6 +5,21 @@ const { PRODUCTS_MODEL } = require('./products.model');
 
 const IMAGES_MODEL = 'Images';
 
+/**
+ * @swagger
+ * definitions:
+ *  Image:
+ *    type: object
+ *    properties:
+ *      productId:
+ *        type: string
+ *        required: true
+ *      claudinaryId:
+ *        type: string
+ *        required: true
+ *      productColor:
+ *        type: string
+ */
 const imagesSchema = new mongoose.Schema({
   productId: {
     type: OBJECT_ID,

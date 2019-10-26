@@ -50,12 +50,6 @@ router.get('/api-docs', swaggerUi.setup(swaggerSpec));
  *        description: Return array of products
  *      '500':
  *        description: Error message
- */
-router.get('/products', getAllProducts);
-
-/**
- * @swagger
- * /products:
  *  post:
  *    tags:
  *      - products
@@ -65,7 +59,6 @@ router.get('/products', getAllProducts);
  *        in: body
  *        description: Created product object
  *        required: true
- *        type: object
  *        schema:
  *          $ref: '#/definitions/Product'
  *    responses:
@@ -74,7 +67,9 @@ router.get('/products', getAllProducts);
  *      '400':
  *        description: Error message
  */
-router.post('/products', createProduct);
+router.route('/products')
+  .get(getAllProducts)
+  .post(createProduct);
 
 /**
  * @swagger
@@ -87,6 +82,7 @@ router.post('/products', createProduct);
  *      - in: path
  *        name: id
  *        required: true
+ *        type: string
  *    responses:
  *      '200':
  *        description: A single product
@@ -94,12 +90,6 @@ router.post('/products', createProduct);
  *        description: Product not found
  *      '500':
  *        description: Error message
- */
-router.get('/products/:id', findProductById, getProduct);
-
-/**
- * @swagger
- * /products/{id}:
  *  delete:
  *    tags:
  *      - products
@@ -108,6 +98,7 @@ router.get('/products/:id', findProductById, getProduct);
  *      - in: path
  *        name: id
  *        required: true
+ *        type: string
  *    responses:
  *      '200':
  *        description: Returns removed product
@@ -116,7 +107,9 @@ router.get('/products/:id', findProductById, getProduct);
  *      '500':
  *        description: Error message
  */
-router.delete('/products/:id', findProductById, removeProduct);
+router.route('/products/:id')
+  .get(findProductById, getProduct)
+  .delete(findProductById, removeProduct);
 
 // router.delete('/products', removeAllProducts);
 // router.get('/products/mock', getMockedProducts);
