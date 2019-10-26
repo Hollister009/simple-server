@@ -13,10 +13,8 @@ const IMAGES_MODEL = 'Images';
  *    properties:
  *      productId:
  *        type: string
- *        required: true
  *      claudinaryId:
  *        type: string
- *        required: true
  *      productColor:
  *        type: string
  */

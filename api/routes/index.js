@@ -114,10 +114,54 @@ router.route('/products/:id')
 // router.delete('/products', removeAllProducts);
 // router.get('/products/mock', getMockedProducts);
 
+/**
+ * @swagger
+ * /brands:
+ *  get:
+ *    tags:
+ *      - brands
+ *    responses:
+ *      '200':
+ *        description: Returns array of all brands
+ *      '500':
+ *        description: Error message
+ *  post:
+ *    tags:
+ *      - brands
+ *    description: Creates new brand
+ *    parameters:
+ *      - name: body
+ *        in: body
+ *        schema:
+ *          $ref: '#/definitions/Brand'
+ *    responses:
+ *      '201':
+ *        description: Returns created brand
+ *      '500':
+ *        description: Error message
+ */
 router.route('/brands')
-  .post(createBrand)
-  .get(getBrands);
+  .get(getBrands)
+  .post(createBrand);
 
+/**
+ * @swagger
+ * /images:
+ *  post:
+ *    tags:
+ *      - images
+ *    description: Creates new image object
+ *    parameters:
+ *      - name: body
+ *        in: body
+ *        schema:
+ *          $ref: '#/definitions/Image'
+ *    responses:
+ *      '201':
+ *        description: Returns created image object
+ *      '500':
+ *        description: Error message
+ */
 router.route('/images')
   .post(createImage);
 

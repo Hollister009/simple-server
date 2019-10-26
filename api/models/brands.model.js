@@ -10,10 +10,8 @@ const BRANDS_MODEL = 'Brands';
  *    properties:
  *      title:
  *        type: string
- *        required: true
  *      logo:
  *        type: string
- *        required: true
  */
 const brandsSchema = new mongoose.Schema({
   title: { type: String, required: true },
