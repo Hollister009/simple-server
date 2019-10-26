@@ -24,7 +24,7 @@ const collectionsSchema = new mongoose.Schema({
  *        example: 'Adopt breathable fabric, soft, lightweight, comfortable to wear.'
  *      brandId:
  *        type: string
- *        example: 'e3sdd4544aa'
+ *        example: '5daf1650a3f2fe001790b09b'
  *      category:
  *        type: string
  *        example: 'shirts'

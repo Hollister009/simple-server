@@ -3,6 +3,7 @@ const productsRoute = require('express').Router();
 const {
   getProduct,
   createProduct,
+  updateProduct,
   removeProduct,
   getAllProducts,
   findProductById,
@@ -60,6 +61,28 @@ productsRoute.route('/products')
  *        description: Product not found
  *      '500':
  *        description: Error message
+ *  put:
+ *    tags:
+ *      - products
+ *    description: Update selected product 
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        type: string
+ *      - in: body
+ *        name: body
+ *        description: Update product paramters
+ *        required: true
+ *        schema:
+ *          $ref: '#/definitions/Product'
+ *    responses:
+ *      '200':
+ *        description: Product updated
+ *      '400':
+ *        description: Product not found
+ *      '503':
+ *        description: Error message
  *  delete:
  *    tags:
  *      - products
@@ -79,6 +102,7 @@ productsRoute.route('/products')
  */
 productsRoute.route('/products/:id')
   .get(findProductById, getProduct)
+  .put(findProductById, updateProduct)
   .delete(findProductById, removeProduct);
 
 module.exports = productsRoute;
