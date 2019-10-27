@@ -4,10 +4,12 @@ const getBrands = async (req, res) => {
   try {
     const brands = await Brands.find().exec();
 
-    if (brands) {
-      res.json(brands);
+    if (!brands) {
+      res.status(404).json({ error: "Not found" })
+      return;
     }
 
+    res.json(brands);
   } catch(err) {
     res.status(500).json({ message: err.message });
   }

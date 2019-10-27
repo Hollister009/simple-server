@@ -5,7 +5,7 @@ const {
   createProduct,
   updateProduct,
   removeProduct,
-  getAllProducts,
+  getProducts,
   findProductById,
 } = require('../controllers/products.controller');
 
@@ -39,7 +39,7 @@ const {
  *        description: Error message
  */
 productsRoute.route('/products')
-  .get(getAllProducts)
+  .get(getProducts)
   .post(createProduct);
 
 /**
