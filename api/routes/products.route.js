@@ -17,7 +17,11 @@ const {
  *      - products
  *    responses:
  *      '200':
- *        description: Return array of products
+ *        description: A list of products
+ *        schema:
+ *          type: array
+ *          items:
+ *            $ref: '#/definitions/Product'
  *      '500':
  *        description: Error message
  *  post:
@@ -32,7 +36,9 @@ const {
  *          $ref: '#/definitions/Product'
  *    responses:
  *      '201':
- *        description: Returns created product
+ *        description: Created product
+ *        schema:
+ *          $ref: '#/definitions/Product'
  *      '400':
  *        description: Error message
  */
@@ -55,6 +61,8 @@ productsRoute.route('/products')
  *    responses:
  *      '200':
  *        description: A single product
+ *        schema:
+ *          $ref: '#/definitions/Product'
  *      '400':
  *        description: Product not found
  *      '500':
@@ -76,7 +84,9 @@ productsRoute.route('/products')
  *          $ref: '#/definitions/Product'
  *    responses:
  *      '200':
- *        description: Product updated
+ *        description: Updated product
+ *        schema:
+ *          $ref: '#/definitions/Product'
  *      '400':
  *        description: Product not found
  *      '503':
@@ -92,7 +102,9 @@ productsRoute.route('/products')
  *        type: string
  *    responses:
  *      '200':
- *        description: Returns removed product
+ *        description: Removed product
+ *        schema:
+ *          $ref: '#/definitions/Product'
  *      '400':
  *        description: Product not found
  *      '500':

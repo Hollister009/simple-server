@@ -10,7 +10,11 @@ const { getBrands, createBrand } = require('../controllers/brands.controller');
  *      - brands
  *    responses:
  *      '200':
- *        description: Returns array of all brands
+ *        description: List of brands
+ *        schema:
+ *          type: array
+ *          items:
+ *            $ref: '#/definitions/Brand'
  *      '500':
  *        description: Error message
  *  post:
@@ -25,7 +29,9 @@ const { getBrands, createBrand } = require('../controllers/brands.controller');
  *          $ref: '#/definitions/Brand'
  *    responses:
  *      '201':
- *        description: Returns created brand
+ *        description: Created brand
+ *        schema:
+ *          $ref: '#/definitions/Brand'
  *      '400':
  *        description: Error message
  */

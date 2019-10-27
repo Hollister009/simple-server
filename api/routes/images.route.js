@@ -10,7 +10,11 @@ const { createImage, getAllImages } = require('../controllers/images.controller'
  *      - images
  *    responses:
  *      '200':
- *        description: Returns array of all images
+ *        description: List of image records
+ *        schema:
+ *          type: array
+ *          items:
+ *            $ref: '#/definitions/Image'
  *      '500':
  *        description: Error message
  *  post:
@@ -25,7 +29,9 @@ const { createImage, getAllImages } = require('../controllers/images.controller'
  *          $ref: '#/definitions/Image'
  *    responses:
  *      '201':
- *        description: Returns created image
+ *        description: Created image record
+ *        schema:
+ *          $ref: '#/definitions/Image'
  *      '400':
  *        description: Error message
  */
