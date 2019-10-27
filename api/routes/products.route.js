@@ -15,7 +15,6 @@ const {
  *  get:
  *    tags:
  *      - products
- *    description: Read list of all products
  *    responses:
  *      '200':
  *        description: Return array of products
@@ -28,13 +27,12 @@ const {
  *    parameters:
  *      - name: body
  *        in: body
- *        description: Created product object
  *        required: true
  *        schema:
  *          $ref: '#/definitions/Product'
  *    responses:
  *      '201':
- *        description: Return newly created product
+ *        description: Returns created product
  *      '400':
  *        description: Error message
  */
