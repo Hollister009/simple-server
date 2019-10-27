@@ -10,22 +10,29 @@ const { getBrands, createBrand } = require('../controllers/brands.controller');
  *      - brands
  *    responses:
  *      '200':
- *        description: Returns array of all brands
+ *        description: List of brands
+ *        schema:
+ *          type: array
+ *          items:
+ *            $ref: '#/definitions/Brand'
  *      '500':
  *        description: Error message
  *  post:
  *    tags:
  *      - brands
- *    description: Creates new brand
+ *    description: Creates new brand object
  *    parameters:
  *      - name: body
  *        in: body
+ *        required: true
  *        schema:
  *          $ref: '#/definitions/Brand'
  *    responses:
  *      '201':
- *        description: Returns created brand
- *      '500':
+ *        description: Created brand
+ *        schema:
+ *          $ref: '#/definitions/Brand'
+ *      '400':
  *        description: Error message
  */
 brandsRoute.route('/brands')

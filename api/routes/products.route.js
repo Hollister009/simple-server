@@ -15,10 +15,13 @@ const {
  *  get:
  *    tags:
  *      - products
- *    description: Read list of all products
  *    responses:
  *      '200':
- *        description: Return array of products
+ *        description: A list of products
+ *        schema:
+ *          type: array
+ *          items:
+ *            $ref: '#/definitions/Product'
  *      '500':
  *        description: Error message
  *  post:
@@ -28,15 +31,16 @@ const {
  *    parameters:
  *      - name: body
  *        in: body
- *        description: Created product object
  *        required: true
  *        schema:
  *          $ref: '#/definitions/Product'
  *    responses:
  *      '201':
- *        description: Return newly created product
+ *        description: Created product
+ *        schema:
+ *          $ref: '#/definitions/Product'
  *      '400':
- *        description: Error message
+ *        description: Bad request error
  */
 productsRoute.route('/products')
   .get(getProducts)
@@ -57,6 +61,8 @@ productsRoute.route('/products')
  *    responses:
  *      '200':
  *        description: A single product
+ *        schema:
+ *          $ref: '#/definitions/Product'
  *      '400':
  *        description: Product not found
  *      '500':
@@ -72,17 +78,21 @@ productsRoute.route('/products')
  *        type: string
  *      - in: body
  *        name: body
- *        description: Update product paramters
  *        required: true
+ *        description: Update product fields
  *        schema:
  *          $ref: '#/definitions/Product'
  *    responses:
  *      '200':
- *        description: Product updated
+ *        description: Updated product
+ *        schema:
+ *          $ref: '#/definitions/Product'
  *      '400':
  *        description: Product not found
- *      '503':
+ *      '500':
  *        description: Error message
+ *      '503':
+ *        description: Service unavailable
  *  delete:
  *    tags:
  *      - products
@@ -94,7 +104,9 @@ productsRoute.route('/products')
  *        type: string
  *    responses:
  *      '200':
- *        description: Returns removed product
+ *        description: Removed product
+ *        schema:
+ *          $ref: '#/definitions/Product'
  *      '400':
  *        description: Product not found
  *      '500':

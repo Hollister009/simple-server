@@ -12,8 +12,12 @@ const options = {
   swaggerDefinition: {
     info: {
       title: 'Simple REST API Server',
-      version: '1.0.0',
-      description: 'A sample API'
+      description: 'A sample API',
+      version: '1.0.1',
+      license: {
+        name: 'Apache 2.0',
+        url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+      }
     },
     basePath: '/'
   },
