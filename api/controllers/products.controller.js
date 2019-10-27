@@ -1,4 +1,3 @@
-// @ts-check
 const fs = require('fs');
 const path = require('path');
 
@@ -29,25 +28,21 @@ const getProduct = (req, res) => {
 
 // POST method
 const createProduct = async (req, res) => {
-  const {
-    title, description, brandId, category, sizes, colors, genders, seasons, imageIds, collectionIds, quantity, sellCount, price, video
-  } = req.body;
+  const { body, body: { sizes } } = req;
+  let updatedSizes;
+
+  if (Array.isArray(sizes)) {
+    updatedSizes = sizes.map(s => {;
+      if (typeof s === 'string') {
+        return s.toLowerCase();
+      }
+      return s;
+    });
+  }
 
   const product = new Products({
-    title,
-    description,
-    brandId,
-    category,
-    sizes,
-    colors,
-    genders,
-    seasons,
-    imageIds,
-    collectionIds,
-    quantity,
-    sellCount,
-    price,
-    video
+    ...body,
+    sizes: updatedSizes || sizes
   });
 
   try {
@@ -57,6 +52,32 @@ const createProduct = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+
+// PUT method
+const updateProduct = async (req, res) => {
+  const { product, body } = req;
+
+  try {
+    product.updatedAt = Date.now();
+
+    Object.keys(body)
+      .forEach(key => {
+        if (key !== 'createdAt' && key !== 'updatedAt') {
+          product[key] = body[key];
+        }
+      });
+
+    await product.save(err => {
+      if (err) {
+        throw new Error(err.message, err.status, 'Update Product');
+      }
+      res.status(200).json(product);
+    })
+
+  } catch (err) {
+    res.status(503).json({ error: err.message })
+  }
+}
 
 // DELETE method
 const removeProduct = async (req, res) => {
@@ -100,16 +121,6 @@ const getProducts = async (req, res) => {
   }
 };
 
-// DELETE method
-const removeAllProducts = async (req, res) => {
-  try {
-    await Products.collection.drop();
-    res.status(200).json({ message: 'Products collection was cleared!' });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
 async function findProductById(req, res, next) {
   let product;
   const { id } = req.params;
@@ -130,10 +141,10 @@ async function findProductById(req, res, next) {
 
 module.exports = {
   getProduct,
-  removeProduct,
   createProduct,
   getProducts,
+  updateProduct,
+  removeProduct,
   findProductById,
-  removeAllProducts,
   getMockedProducts
 };
