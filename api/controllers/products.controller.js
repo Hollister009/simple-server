@@ -25,10 +25,21 @@ const getProduct = (req, res) => {
 
 // POST method
 const createProduct = async (req, res) => {
-  const { body } = req;
+  const { body, body: { sizes } } = req;
+  let updatedSizes;
+
+  if (sizes) {
+    updatedSizes = sizes.map(s => {;
+      if (typeof s === 'string') {
+        return s.toLowerCase();
+      }
+      return s;
+    });
+  }
 
   const product = new Products({
-    ...body
+    ...body,
+    sizes: updatedSizes || sizes
   });
 
   try {

@@ -4,6 +4,7 @@ const OBJECT_ID = mongoose.Types.ObjectId;
 const { BRANDS_MODEL } = require('./brands.model');
 
 const PRODUCTS_MODEL = 'Products';
+const SIZE_VALUES = ['s', 'm', 'l', 'xl', 'xxl'];
 
 const collectionsSchema = new mongoose.Schema({
   title: String,
@@ -32,6 +33,12 @@ const collectionsSchema = new mongoose.Schema({
  *        type: array
  *        items:
  *          type: string
+ *          enum:
+ *            - 's'
+ *            - 'm'
+ *            - 'l'
+ *            - 'xl'
+ *            - 'xxl'
  *        example: ['s', 'm', 'l']
  *      colors:
  *        type: array
@@ -73,7 +80,10 @@ const productsSchema = new mongoose.Schema({
     ref: BRANDS_MODEL
   },
   category: { type: String, required: true },
-  sizes: [String],
+  sizes: {
+    type: [String],
+    enum: SIZE_VALUES
+  },
   colors: [String],
   genders: [String],
   seasons: [String],
@@ -83,11 +93,14 @@ const productsSchema = new mongoose.Schema({
   }],
   quantity: { type: Number, default: 1 },
   sellCount: { type: Number, default: 0 },
-  price: { type: Number, default: 1 },
+  price: { type: Number, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
-  video: String
+  video: { type: String, default: null }
 });
+
+// Custom field validation
+productsSchema.path('sizes').validate(val => val.length, 'Please specify at least one size');
 
 const Products = mongoose.model(PRODUCTS_MODEL, productsSchema);
 
