@@ -26,18 +26,41 @@ const createImage = async (req, res) => {
 // GET method
 const getImageById = (req, res) => {
   const { imageRecord } = req;
-  res.send(imageRecord);
+  res.json(imageRecord);
 }
 
-// GET method
-const getImagesByParams = async (req, res) => {
-  // TODO:
-  // 1. find how to parse request query parameters
-  // 2. read doc on mongoose querying
-  // 3. return correct response
-  // 4. produce correct route
-  // 5. document route with swagger
-}
+// PUT method
+const updateImage = async (req, res) => {
+  const { imageRecord, body } = req;
+
+  try {
+    Object.keys(body).forEach(key => {
+      imageRecord[key] = body[key];
+    });
+
+    await imageRecord.save(err => {
+      if (err) {
+        throw new Error(err.message, err.status, 'Update Image record');
+      }
+    });
+
+    res.status(200).json(imageRecord);
+  } catch(err) {
+    res.status(503).json({ message: err.message });
+  }
+};
+
+// DELETE method
+const removeImage = async (req, res) => {
+  const { imageRecord } = req;
+
+  try {
+    await imageRecord.remove();
+    res.status(200).json(imageRecord);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
 
 // middleware
 async function findImageRecord(req, res, next) {
@@ -47,7 +70,7 @@ async function findImageRecord(req, res, next) {
   try {
     imageRecord = await Images.findById(id).exec();
 
-    if (imageRecord === null) {
+    if (!imageRecord) {
       res.status(400).json({ message: 'No image record was wound!'});
     }
   } catch(err) {
@@ -61,6 +84,8 @@ async function findImageRecord(req, res, next) {
 module.exports = {
   getImageById,
   createImage,
+  updateImage,
+  removeImage,
   getAllImages,
   findImageRecord
 };

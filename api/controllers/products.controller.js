@@ -85,8 +85,8 @@ const removeProduct = async (req, res) => {
   const { product } = req;
 
   try {
-    const deletedProduct = await product.remove();
-    res.status(200).json(deletedProduct);
+    await product.remove();
+    res.status(200).json(product);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -105,7 +105,7 @@ const getProductFilter = (query) => {
   return filter;
 }
 
-
+// GET method
 const getProducts = async (req, res) => {
   const filter = getProductFilter(req.query);
   const aggregationPipeline = getProductPipeline(filter);
@@ -115,7 +115,6 @@ const getProducts = async (req, res) => {
 
     if (!products) {
       res.status(404).json({ error: "Not found" })
-      return;
     }
 
     res.json(products);
@@ -124,6 +123,7 @@ const getProducts = async (req, res) => {
   }
 };
 
+// middleware
 async function findProductById(req, res, next) {
   let product;
   const { id } = req.params;
@@ -131,7 +131,7 @@ async function findProductById(req, res, next) {
   try {
     product = await Products.findById(id).exec();
 
-    if (product === null) {
+    if (!product) {
       return res.status(400).json({ message: 'Product not found'})
     }
   } catch (err) {
