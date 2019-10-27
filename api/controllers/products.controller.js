@@ -88,6 +88,12 @@ const getProducts = async (req, res) => {
 
   try {
     const products = await Products.find(filter).exec();
+
+    if (!products) {
+      res.status(404).json({ error: "Not found" })
+      return;
+    }
+
     res.json(products);
   } catch (err) {
     res.status(500).json({ message: err.message });
