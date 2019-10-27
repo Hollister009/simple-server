@@ -5,6 +5,7 @@ const { BRANDS_MODEL } = require('./brands.model');
 
 const PRODUCTS_MODEL = 'Products';
 const SIZE_VALUES = ['s', 'm', 'l', 'xl', 'xxl'];
+const SEASON_VALUES = ['spring', 'summer', 'autumn', 'winter'];
 
 const collectionsSchema = new mongoose.Schema({
   title: String,
@@ -55,6 +56,11 @@ const collectionsSchema = new mongoose.Schema({
  *        type: array
  *        items:
  *          type: string
+ *          enum:
+ *            - 'spring'
+ *            - 'summer'
+ *            - 'autumn'
+ *            - 'winter'
  *        example: ['spring', 'summer', 'autumn']
  *      quantity:
  *        type: integer
@@ -86,7 +92,10 @@ const productsSchema = new mongoose.Schema({
   },
   colors: [String],
   genders: [String],
-  seasons: [String],
+  seasons: {
+    type: [String],
+    enum: SEASON_VALUES
+  },
   collectionIds: [{
     type: OBJECT_ID,
     ref: collectionsSchema

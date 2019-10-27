@@ -28,7 +28,7 @@ const createProduct = async (req, res) => {
   const { body, body: { sizes } } = req;
   let updatedSizes;
 
-  if (sizes) {
+  if (Array.isArray(sizes)) {
     updatedSizes = sizes.map(s => {;
       if (typeof s === 'string') {
         return s.toLowerCase();
