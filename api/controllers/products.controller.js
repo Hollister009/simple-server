@@ -4,6 +4,7 @@ const path = require('path');
 const { Products } = require('../models/products.model');
 const { multipleSearchQuery, rangeQuery } = require('../utils/recomposeQuery');
 const { RANGE_QUERY } = require('../constant/rangeQuery');
+const { getProductPipeline } = require('../utils/pipelines');
 
 // Mocked Data
 const getMockedProducts = (req, res) => {
@@ -104,11 +105,13 @@ const getProductFilter = (query) => {
   return filter;
 }
 
+
 const getProducts = async (req, res) => {
   const filter = getProductFilter(req.query);
+  const aggregationPipeline = getProductPipeline(filter);
 
   try {
-    const products = await Products.find(filter).exec();
+    const products = await Products.aggregate(aggregationPipeline).exec();
 
     if (!products) {
       res.status(404).json({ error: "Not found" })
