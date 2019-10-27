@@ -8,14 +8,20 @@ const multipleSearchQuery = (key, value) => {
 
 const rangeQuery = (query) => {
   if (!query) return {};
+  let from, to;
 
-  const range = JSON.parse(query);
-  const { from, to } = range;
+  if (Array.isArray(query)) {
+    [from, to] = query;
+  } else {
+    const range = JSON.parse(query);
+    from = range.from;
+    to = range.to;
+  }
 
   return ({
     $and: [
-      { price: { $gte: from } },
-      { price: { $lte: to } }
+      { price: { $gte: parseFloat(from) } },
+      { price: { $lte: parseFloat(to) } }
     ]
   });
 }
