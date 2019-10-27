@@ -13,10 +13,13 @@ const IMAGES_MODEL = 'Images';
  *    properties:
  *      productId:
  *        type: string
+ *        example: '5db179b634a29600172f6e8a'
  *      claudinaryId:
  *        type: string
+ *        example: 'blouse_1_1'
  *      productColor:
  *        type: string
+ *        example: 'black'
  */
 const imagesSchema = new mongoose.Schema({
   productId: {

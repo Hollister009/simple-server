@@ -40,7 +40,7 @@ const {
  *        schema:
  *          $ref: '#/definitions/Product'
  *      '400':
- *        description: Error message
+ *        description: Bad request error
  */
 productsRoute.route('/products')
   .get(getProducts)
@@ -78,8 +78,8 @@ productsRoute.route('/products')
  *        type: string
  *      - in: body
  *        name: body
- *        description: Update product paramters
  *        required: true
+ *        description: Update product fields
  *        schema:
  *          $ref: '#/definitions/Product'
  *    responses:
@@ -89,8 +89,10 @@ productsRoute.route('/products')
  *          $ref: '#/definitions/Product'
  *      '400':
  *        description: Product not found
- *      '503':
+ *      '500':
  *        description: Error message
+ *      '503':
+ *        description: Service unavailable
  *  delete:
  *    tags:
  *      - products
