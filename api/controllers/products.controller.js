@@ -1,7 +1,10 @@
 // @ts-check
 const fs = require('fs');
 const path = require('path');
+
 const { Products } = require('../models/products.model');
+const { multipleSearchQuery, rangeQuery } = require('../utils/recomposeQuery');
+const { RANGE_QUERY } = require('../constant/rangeQuery');
 
 // Mocked Data
 const getMockedProducts = (req, res) => {
@@ -68,9 +71,23 @@ const removeProduct = async (req, res) => {
 };
 
 // GET method
-const getAllProducts = async (req, res) => {
+const getProductFilter = (query) => {
+  let filter = {};
+
+  Object.keys(query).forEach((item) => {
+    const param = RANGE_QUERY.includes(item) ? rangeQuery(query[item]) : multipleSearchQuery(item, query[item]);
+
+    filter = Object.assign(filter, param);
+  });
+
+  return filter;
+}
+
+const getProducts = async (req, res) => {
+  const filter = getProductFilter(req.query);
+
   try {
-    const products = await Products.find({}).exec();
+    const products = await Products.find(filter).exec();
     res.json(products);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -109,7 +126,7 @@ module.exports = {
   getProduct,
   removeProduct,
   createProduct,
-  getAllProducts,
+  getProducts,
   findProductById,
   removeAllProducts,
   getMockedProducts

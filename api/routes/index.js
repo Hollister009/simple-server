@@ -4,7 +4,7 @@ const {
   createProduct,
   removeProduct,
   getMockedProducts,
-  getAllProducts,
+  getProducts,
   findProductById,
   removeAllProducts
 } = require('../controllers/products.controller');
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 router.route('/products')
   .post(createProduct)
-  .get(getAllProducts)
+  .get(getProducts)
   .delete(removeAllProducts);
   
 router.get('/products/mock', getMockedProducts);
