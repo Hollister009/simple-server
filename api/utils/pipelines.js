@@ -37,10 +37,10 @@ const getProductImagesPipeline = (colors) => {
 
 const getProductPipeline = (filter = {}) => {
   const { colors } = filter;
-  const productPipeline = getProductImagesPipeline(colors);
+  const imageLookup = getProductImagesPipeline(colors);
   const pipeline = [
     { $match: filter },
-    ...productPipeline,
+    ...imageLookup,
     {
       $lookup: {
         from: 'brands',
