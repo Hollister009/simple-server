@@ -65,7 +65,7 @@ const removeImage = async (req, res) => {
 // middleware
 async function findImageRecord(req, res, next) {
   let imageRecord;
-  const { id } = req;
+  const { id } = req.params;
 
   try {
     imageRecord = await Images.findById(id).exec();
