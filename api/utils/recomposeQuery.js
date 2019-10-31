@@ -1,7 +1,21 @@
-const multipleSearchQuery = (key, value) => {
+const { Types } = require('mongoose');
+
+const wrapInId = (value) => {
+  if (Array.isArray(value)) {
+    const test = value.map(item => Types.ObjectId(item));
+
+    return test;
+  }
+
+  return Types.ObjectId(value);
+}
+
+const multipleSearchQuery = (key, value, isId) => {
   if (!value || !key) return {};
 
-  const inValues = Array.isArray(value) ? value : value.split(',');
+  const inArray = Array.isArray(value) ? value : value.split(',');
+  const inValues = isId ? wrapInId(inArray) : inArray;
+
 
   return { [key]: { $in: inValues } };
 }

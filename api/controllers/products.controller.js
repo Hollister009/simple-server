@@ -3,7 +3,7 @@ const path = require('path');
 
 const { Products } = require('../models/products.model');
 const { multipleSearchQuery, rangeQuery } = require('../utils/recomposeQuery');
-const { RANGE_QUERY } = require('../constant/rangeQuery');
+const { RANGE_QUERY, ID_QUERY } = require('../constant/queryTypes');
 const { getProductPipeline } = require('../utils/pipelines');
 
 // Mocked Data
@@ -97,7 +97,9 @@ const getProductFilter = (query) => {
   let filter = {};
 
   Object.keys(query).forEach((item) => {
-    const param = RANGE_QUERY.includes(item) ? rangeQuery(query[item]) : multipleSearchQuery(item, query[item]);
+    const isRangeQuery = RANGE_QUERY.includes(item);
+    const isIdQuery = ID_QUERY.includes(item);
+    const param = isRangeQuery ? rangeQuery(query[item]) : multipleSearchQuery(item, query[item], isIdQuery);
 
     filter = Object.assign(filter, param);
   });
