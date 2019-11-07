@@ -3,7 +3,7 @@ const path = require('path');
 
 const { Products } = require('../models/products.model');
 const { multipleSearchQuery, rangeQuery } = require('../utils/recomposeQuery');
-const { RANGE_QUERY, ID_QUERY } = require('../constant/queryTypes');
+const { PRODUCT_FILTER_QUERY, RANGE_QUERY, ID_QUERY } = require('../constant/queryTypes');
 const { getProductPipeline } = require('../utils/pipelines');
 
 // Mocked Data
@@ -97,6 +97,9 @@ const getProductFilter = (query) => {
   let filter = {};
 
   Object.keys(query).forEach((item) => {
+    const isFilterQuery = PRODUCT_FILTER_QUERY.includes(item);
+    if (!isFilterQuery) return;
+
     const isRangeQuery = RANGE_QUERY.includes(item);
     const isIdQuery = ID_QUERY.includes(item);
     const param = isRangeQuery ? rangeQuery(query[item]) : multipleSearchQuery(item, query[item], isIdQuery);
@@ -110,7 +113,11 @@ const getProductFilter = (query) => {
 // GET method
 const getProducts = async (req, res) => {
   const filter = getProductFilter(req.query);
-  const aggregationPipeline = getProductPipeline(filter);
+  const { page, limit } = req.query;
+  const pageParam = page ? parseInt(page, 10) : 0;
+  const limitParam = limit ? parseInt(limit, 10) : 20;
+
+  const aggregationPipeline = getProductPipeline(filter, pageParam, limitParam);
 
   try {
     const products = await Products.aggregate(aggregationPipeline).exec();
