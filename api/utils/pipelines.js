@@ -35,9 +35,12 @@ const getProductImagesPipeline = (colors) => {
   );
 };
 
-const getProductPipeline = (filter = {}) => {
+const getProductPipeline = (filter = {}, page = 0, limit = 20) => {
   const { colors } = filter;
   const imageLookup = getProductImagesPipeline(colors);
+  const skipStage = { $skip: limit * page };
+  const limitStage = limit ? { $limit: limit } : {};
+
   const pipeline = [
     { $match: filter },
     ...imageLookup,
@@ -48,7 +51,9 @@ const getProductPipeline = (filter = {}) => {
         foreignField: '_id',
         as: 'brand'
       }
-    }
+    },
+    skipStage,
+    limitStage
   ];
 
   return pipeline;
