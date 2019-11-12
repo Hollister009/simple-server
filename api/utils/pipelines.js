@@ -35,11 +35,9 @@ const getProductImagesPipeline = (colors) => {
   );
 };
 
-const getProductPipeline = (filter = {}, page = 0, limit = 20) => {
+const getProductFilterPipeline = (filter = {}) => {
   const { colors } = filter;
   const imageLookup = getProductImagesPipeline(colors);
-  const skipStage = { $skip: limit * page };
-  const limitStage = limit ? { $limit: limit } : {};
 
   const pipeline = [
     { $match: filter },
@@ -51,7 +49,17 @@ const getProductPipeline = (filter = {}, page = 0, limit = 20) => {
         foreignField: '_id',
         as: 'brand'
       }
-    },
+    }
+  ];
+
+  return pipeline;
+}
+
+const getPaginationPipeline = (page = 0, limit = 20) => {
+  const skipStage = { $skip: limit * page };
+  const limitStage = { $limit: limit };
+
+  const pipeline = [
     skipStage,
     limitStage
   ];
@@ -60,5 +68,6 @@ const getProductPipeline = (filter = {}, page = 0, limit = 20) => {
 }
 
 module.exports = {
-  getProductPipeline
+  getProductFilterPipeline,
+  getPaginationPipeline
 };
