@@ -4,7 +4,7 @@ const path = require('path');
 const { Products } = require('../models/products.model');
 const { multipleSearchQuery, rangeQuery } = require('../utils/recomposeQuery');
 const { PRODUCT_FILTER_QUERY, RANGE_QUERY, ID_QUERY } = require('../constant/queryTypes');
-const { getProductPipeline } = require('../utils/pipelines');
+const { getProductFilterPipeline, getPaginationPipeline } = require('../utils/pipelines');
 
 // Mocked Data
 const getMockedProducts = (req, res) => {
@@ -117,16 +117,18 @@ const getProducts = async (req, res) => {
   const pageParam = page ? parseInt(page, 10) : 0;
   const limitParam = limit ? parseInt(limit, 10) : 20;
 
-  const aggregationPipeline = getProductPipeline(filter, pageParam, limitParam);
+  const aggregationPipeline = getProductFilterPipeline(filter);
+  const paginationPipeline = getPaginationPipeline(pageParam, limitParam);
 
   try {
-    const products = await Products.aggregate(aggregationPipeline).exec();
+    const products = await Products.aggregate([...aggregationPipeline, ...paginationPipeline]).exec();
+    const count = await Products.aggregate([...aggregationPipeline, { $count: "count" }]).exec();
 
-    if (!products) {
+    if (!products || !count) {
       res.status(404).json({ error: "Not found" })
     }
 
-    res.json(products);
+    res.json({ products, count: count[0].count });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
