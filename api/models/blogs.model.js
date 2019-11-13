@@ -29,7 +29,6 @@ const BLOGS_MODEL = 'Blogs';
  */
 
 const blogsSchema = new mongoose.Schema({
-  id: { type: OBJECT_ID },
   date: { type: Date, default: Date.now },
   title: { type: String, required: true },
   intro: { type: String, required: true },
