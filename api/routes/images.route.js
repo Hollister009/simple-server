@@ -1,4 +1,3 @@
-// @ts-check
 const imagesRoute = require('express').Router();
 const {
   getImageById,
@@ -42,7 +41,8 @@ const {
  *      '400':
  *        description: Bad request error
  */
-imagesRoute.route('/images')
+imagesRoute
+  .route('/images')
   .get(getAllImages)
   .post(createImage);
 
@@ -111,9 +111,10 @@ imagesRoute.route('/images')
  *      '500':
  *        description: Error Message
  */
-imagesRoute.route('/images/:id')
+imagesRoute
+  .route('/images/:id')
   .get(findImageRecord, getImageById)
   .put(findImageRecord, updateImage)
-  .delete(findImageRecord, removeImage)
+  .delete(findImageRecord, removeImage);
 
 module.exports = imagesRoute;

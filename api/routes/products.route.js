@@ -1,4 +1,3 @@
-// @ts-check
 const productsRoute = require('express').Router();
 const {
   getProduct,
@@ -6,7 +5,7 @@ const {
   updateProduct,
   removeProduct,
   getProducts,
-  findProductById,
+  findProductById
 } = require('../controllers/products.controller');
 
 /**
@@ -42,7 +41,8 @@ const {
  *      '400':
  *        description: Bad request error
  */
-productsRoute.route('/products')
+productsRoute
+  .route('/products')
   .get(getProducts)
   .post(createProduct);
 
@@ -70,7 +70,7 @@ productsRoute.route('/products')
  *  put:
  *    tags:
  *      - products
- *    description: Update selected product 
+ *    description: Update selected product
  *    parameters:
  *      - in: path
  *        name: id
@@ -112,7 +112,8 @@ productsRoute.route('/products')
  *      '500':
  *        description: Error message
  */
-productsRoute.route('/products/:id')
+productsRoute
+  .route('/products/:id')
   .get(findProductById, getProduct)
   .put(findProductById, updateProduct)
   .delete(findProductById, removeProduct);

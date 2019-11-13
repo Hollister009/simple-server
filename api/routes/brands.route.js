@@ -1,4 +1,3 @@
-// @ts-check
 const brandsRoute = require('express').Router();
 const { getBrands, createBrand } = require('../controllers/brands.controller');
 
@@ -35,7 +34,8 @@ const { getBrands, createBrand } = require('../controllers/brands.controller');
  *      '400':
  *        description: Error message
  */
-brandsRoute.route('/brands')
+brandsRoute
+  .route('/brands')
   .get(getBrands)
   .post(createBrand);
 

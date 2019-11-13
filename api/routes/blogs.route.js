@@ -5,7 +5,7 @@ const {
   createBlog,
   findBlogById,
   removeBlog,
-  updateBlog 
+  updateBlog
 } = require('../controllers/blogs.controller');
 
 /**
@@ -40,11 +40,12 @@ const {
  *          $ref: '#/definitions/Blog'
  *      '400':
  *        description: Bad request error
- */  
+ */
 
-blogsRoute.route('/blogs')
-.get(getBlogs)
-.post(createBlog)
+blogsRoute
+  .route('/blogs')
+  .get(getBlogs)
+  .post(createBlog);
 
 /**
  * @swagger
@@ -70,7 +71,7 @@ blogsRoute.route('/blogs')
  *  put:
  *    tags:
  *      - blogs
- *    description: Update selected blog 
+ *    description: Update selected blog
  *    parameters:
  *      - in: path
  *        name: id
@@ -95,7 +96,7 @@ blogsRoute.route('/blogs')
  *        description: Service unavailable
  *  delete:
  *    tags:
- *      - products
+ *      - blogs
  *    description: Removes single blog
  *    parameters:
  *      - in: path
@@ -113,9 +114,10 @@ blogsRoute.route('/blogs')
  *        description: Error message
  */
 
-blogsRoute.route('/blogs/:id')
+blogsRoute
+  .route('/blogs/:id')
   .get(findBlogById, getBlog)
   .put(findBlogById, updateBlog)
-  .delete(findBlogById, removeBlog)
+  .delete(findBlogById, removeBlog);
 
 module.exports = blogsRoute;

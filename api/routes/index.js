@@ -1,4 +1,3 @@
-// @ts-check
 const router = require('express').Router();
 const productsRoute = require('./products.route');
 const brandsRoute = require('./brands.route');
@@ -42,6 +41,6 @@ router
   .use(productsRoute)
   .use(brandsRoute)
   .use(imagesRoute)
-  .use(blogsRoute)
+  .use(blogsRoute);
 
 module.exports = router;

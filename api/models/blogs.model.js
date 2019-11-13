@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
-const OBJECT_ID = mongoose.Types.ObjectId;
 
 const BLOGS_MODEL = 'Blogs';
 
 /**
  * @swagger
  * definitions:
- *  Product:
+ *  Blog:
  *    type: object
- *    properties: 
- *      date: 
+ *    properties:
+ *      date:
  *        type: string
  *        format: date-time
  *      title:
@@ -18,7 +17,7 @@ const BLOGS_MODEL = 'Blogs';
  *      intro:
  *        type: string
  *        example: 'we know what you want this summer. most fashion looks'
- *      labels: 
+ *      labels:
  *        type: array
  *        items:
  *          type: string
@@ -34,7 +33,7 @@ const blogsSchema = new mongoose.Schema({
   intro: { type: String, required: true },
   description: { type: String, required: true },
   labels: [String],
-  photo: { type: String, required: true},
+  photo: { type: String, required: true }
 });
 
 const Blogs = mongoose.model(BLOGS_MODEL, blogsSchema);

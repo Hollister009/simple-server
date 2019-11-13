@@ -1,21 +1,27 @@
 const { Blogs } = require('../models/blogs.model');
 
+// GET method
+const getBlog = (req, res) => {
+  res.json(req.blog);
+};
+
+// GET method
 const getBlogs = async (req, res) => {
   try {
     const blogs = await Blogs.find().exec();
 
     if (!blogs) {
-      res.status(404).json({ error: "Not found" })
+      res.status(404).json({ error: 'Not found' });
       return;
     }
 
     res.json(blogs);
-  } catch(err) {
+  } catch (err) {
     res.status(500).json({ message: err.message });
   }
-}
+};
 
-//POST method
+// POST method
 const createBlog = async (req, res) => {
   const { title, intro, photo, labels, description } = req.body;
   const blog = new Blogs({ title, intro, photo, labels, description });
@@ -47,22 +53,20 @@ const updateBlog = async (req, res) => {
   try {
     blog.date = Date.now();
 
-    Object.keys(body)
-      .forEach(key => {
-        blog[key] = body[key];
-      });
+    Object.keys(body).forEach(key => {
+      blog[key] = body[key];
+    });
 
     await blog.save(err => {
       if (err) {
         throw new Error(err.message);
       }
       res.status(200).json(blog);
-    })
-
+    });
   } catch (err) {
-    res.status(503).json({ error: err.message })
+    res.status(503).json({ error: err.message });
   }
-}
+};
 
 // middleware
 async function findBlogById(req, res, next) {
@@ -73,7 +77,7 @@ async function findBlogById(req, res, next) {
     blog = await Blogs.findById(id).exec();
 
     if (!blog) {
-      return res.status(400).json({ message: 'Blog not found'})
+      return res.status(400).json({ message: 'Blog not found' });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -81,15 +85,11 @@ async function findBlogById(req, res, next) {
 
   req.blog = blog;
   next();
-};
-
-const getBlog = (req, res) => {
-  res.json(req.blog);
 }
 
 module.exports = {
-  getBlogs,
   getBlog,
+  getBlogs,
   createBlog,
   removeBlog,
   findBlogById,
