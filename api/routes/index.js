@@ -3,6 +3,7 @@ const router = require('express').Router();
 const productsRoute = require('./products.route');
 const brandsRoute = require('./brands.route');
 const imagesRoute = require('./images.route');
+const blogsRoute = require('./blogs.route');
 // swagger modules
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
@@ -34,13 +35,13 @@ router.get('/swagger.json', (req, res) => {
   res.send(swaggerSpec);
 });
 
-
 router.use('/api-docs', swaggerUi.serve);
 router.get('/api-docs', swaggerUi.setup(swaggerSpec));
 
 router
   .use(productsRoute)
   .use(brandsRoute)
-  .use(imagesRoute);
+  .use(imagesRoute)
+  .use(blogsRoute)
 
 module.exports = router;
