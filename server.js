@@ -1,3 +1,4 @@
+// @ts-nocheck
 const path = require('path');
 const cors = require('cors');
 const pino = require('pino');
@@ -22,6 +23,24 @@ app.use(cors())
   .use(express.urlencoded({ extended:false }))  
   .use(expressLogger)
   .use(router);
+
+app.all('*', (req, res, next) => {
+  const err = new Error(`Cant find ${req.originalUrl} on server!`);
+  err.status = 'not found';
+  err.statusCode = 404;
+
+  next(err);
+});
+
+app.use((err, req, res, next) => {
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || 'error';
+
+  res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message
+  });
+});
 
 app.listen(port, () => {
   logger.info('Server is running on port %d', port)
