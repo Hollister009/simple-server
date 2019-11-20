@@ -21,7 +21,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-pino-logger": "^4.0.0",
-    "mongoose": "^5.7.1",
+    "mongoose": "^5.7.5",
     "pino": "^5.13.6",
     "swagger-jsdoc": "^3.4.0",
     "swagger-ui-express": "^4.1.2"
