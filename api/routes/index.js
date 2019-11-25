@@ -3,6 +3,7 @@ const productsRoute = require('./products.route');
 const brandsRoute = require('./brands.route');
 const imagesRoute = require('./images.route');
 const blogsRoute = require('./blogs.route');
+const reviewRoute = require('./review.route');
 // swagger modules
 const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
@@ -41,6 +42,7 @@ router
   .use(productsRoute)
   .use(brandsRoute)
   .use(imagesRoute)
-  .use(blogsRoute);
+  .use(blogsRoute)
+  .use(reviewRoute);
 
 module.exports = router;
