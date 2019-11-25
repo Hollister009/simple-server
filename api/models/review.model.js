@@ -1,4 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+
+const REVIEW_MODEL = "Review";
 
 /**
  * @swagger
@@ -23,14 +25,19 @@ const mongoose = require('mongoose');
  *        type: string
  *        format: data-time
  */
-const reviewSchema = new mongoose.Schema({
-  title: String,
-  productId: String,
-  createdBy: String,
-  message: String,
-  rating: Number,
-  createdAt: Date,
-  updatedAt: Date,
-});
+const reviewSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+    productId: { type: String, required: true },
+    createdBy: { type: String, required: true },
+    message: { type: String, required: true },
+    rating: { type: Number, required: true }
+  },
+  {
+    timestamps: true
+  }
+);
 
-module.exports = mongoose.model('Review', reviewSchema);
+const Review = mongoose.model(REVIEW_MODEL, reviewSchema);
+
+module.exports = { REVIEW_MODEL, Review };
