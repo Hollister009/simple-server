@@ -4,6 +4,20 @@ const bcrypt = require('bcryptjs');
 
 const USER_MODEL = 'User';
 
+const addressSchema = new mongoose.Schema({
+  company: String,
+  addressOne: {
+    type: String,
+    required: [true, 'Please provide at least one address']
+  },
+  addressTwo: String,
+  country: { type: String, required: true },
+  city: { type: String, required: true },
+  state: String,
+  postalCode: { type: Number, required: true },
+  phone: { type: Number, required: true }
+});
+
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -27,55 +41,24 @@ const userSchema = new mongoose.Schema({
     select: false
   },
   address: {
-    firstName: {
-      type: String,
-      // required: [true, 'Please tell us your Address First Name']
-    },
-    lastName: {
-      type: String,
-      // required: [true, 'Please tell us your Address Last Name']
-    },
-    company: {
-      type: String
-    },
-    addressOne: {
-      type: String
-    },
-    addressTwo: {
-      type: String
-    },
-    country: {
-      type: String
-    },
-    city: {
-      type: String
-    },
-    state: {
-      type: String
-    },
-    postalCode: {
-      type: Number,
-      // required: [true, 'Please tell us your ZIP/Postal code']
-    },
-    phone: {
-      type: Number
-    }
+    ref: addressSchema,
+    required: true
   }
-})
+});
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async (next) => {
   // TODO only run this password if password was actyally modified
   // if(!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 12);
   next();
 });
 
-userSchema.methods.correctPassword = async function(
+userSchema.methods.correctPassword = async (
   candidatePassword,
   userPassword
-) {
+) => {
   return await bcrypt.compare(candidatePassword, userPassword);
-}
+};
 
 const User = mongoose.model(USER_MODEL, userSchema);
 
