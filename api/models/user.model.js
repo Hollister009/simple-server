@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-userSchema.pre('save', async (next) => {
+userSchema.pre('save', async function(next) {
   // TODO only run this password if password was actyally modified
   // if(!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 12);
