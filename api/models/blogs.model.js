@@ -33,7 +33,8 @@ const blogsSchema = new mongoose.Schema({
   intro: { type: String, required: true },
   description: { type: String, required: true },
   labels: [String],
-  photo: { type: String, required: true }
+  photo: { type: String, required: true },
+  category: { type: String, required: true }
 });
 
 const Blogs = mongoose.model(BLOGS_MODEL, blogsSchema);

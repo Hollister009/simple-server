@@ -7,8 +7,12 @@ const getBlog = (req, res) => {
 
 // GET method
 const getBlogs = async (req, res) => {
+  const { category } = req.query;
+
   try {
-    const blogs = await Blogs.find().exec();
+    const blogs = !category
+      ? await Blogs.find().exec()
+      : await Blogs.find({ category }).exec();
 
     if (!blogs) {
       res.status(404).json({ error: 'Not found' });
@@ -23,8 +27,15 @@ const getBlogs = async (req, res) => {
 
 // POST method
 const createBlog = async (req, res) => {
-  const { title, intro, photo, labels, description } = req.body;
-  const blog = new Blogs({ title, intro, photo, labels, description });
+  const { title, intro, photo, labels, description, category } = req.body;
+  const blog = new Blogs({
+    title,
+    intro,
+    photo,
+    labels,
+    description,
+    category
+  });
 
   try {
     const response = await blog.save();
