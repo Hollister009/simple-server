@@ -42,7 +42,6 @@ const userSchema = new mongoose.Schema({
   },
   address: {
     ref: addressSchema,
-    required: true
   }
 });
 
