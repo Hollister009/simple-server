@@ -40,9 +40,7 @@ const userSchema = new mongoose.Schema({
     minlength: 8,
     select: false
   },
-  address: {
-    ref: addressSchema,
-  }
+  address: addressSchema
 });
 
 userSchema.pre('save', async function(next) {
