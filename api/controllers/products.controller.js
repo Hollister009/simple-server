@@ -3,15 +3,22 @@ const path = require('path');
 
 const { Products } = require('../models/products.model');
 const { multipleSearchQuery, rangeQuery } = require('../utils/recomposeQuery');
-const { PRODUCT_FILTER_QUERY, RANGE_QUERY, ID_QUERY } = require('../constant/queryTypes');
-const { getProductFilterPipeline, getPaginationPipeline } = require('../utils/pipelines');
+const {
+  PRODUCT_FILTER_QUERY,
+  RANGE_QUERY,
+  ID_QUERY,
+} = require('../constant/queryTypes');
+const {
+  getProductFilterPipeline,
+  getPaginationPipeline,
+} = require('../utils/pipelines');
 
 // Mocked Data
 const getMockedProducts = (req, res) => {
   const fetchProducts = () => {
-    const filePath = path.resolve('static','products.json');
+    const filePath = path.resolve('static', 'products.json');
     const encoding = 'utf-8';
-  
+
     try {
       const products = fs.readFileSync(filePath, encoding);
       return JSON.parse(products);
@@ -25,15 +32,18 @@ const getMockedProducts = (req, res) => {
 // GET method
 const getProduct = (req, res) => {
   res.json(req.product);
-}
+};
 
 // POST method
 const createProduct = async (req, res) => {
-  const { body, body: { sizes } } = req;
+  const {
+    body,
+    body: { sizes },
+  } = req;
   let updatedSizes;
 
   if (Array.isArray(sizes)) {
-    updatedSizes = sizes.map(s => {;
+    updatedSizes = sizes.map((s) => {
       if (typeof s === 'string') {
         return s.toLowerCase();
       }
@@ -43,7 +53,7 @@ const createProduct = async (req, res) => {
 
   const product = new Products({
     ...body,
-    sizes: updatedSizes || sizes
+    sizes: updatedSizes || sizes,
   });
 
   try {
@@ -61,24 +71,24 @@ const updateProduct = async (req, res) => {
   try {
     product.updatedAt = Date.now();
 
-    Object.keys(body)
-      .forEach(key => {
-        if (key !== 'createdAt' && key !== 'updatedAt') {
-          product[key] = body[key];
-        }
-      });
+    Object.keys(body).forEach((key) => {
+      if (key !== 'createdAt' && key !== 'updatedAt') {
+        product[key] = body[key];
+      }
+    });
 
-    await product.save(err => {
+    await product.save((err) => {
+      console.log(err);
+
       if (err) {
-        throw new Error(err.message, err.status, 'Update Product');
+        throw new Error(err.message);
       }
       res.status(200).json(product);
-    })
-
+    });
   } catch (err) {
-    res.status(503).json({ error: err.message })
+    res.status(503).json({ error: err.message });
   }
-}
+};
 
 // DELETE method
 const removeProduct = async (req, res) => {
@@ -102,13 +112,15 @@ const getProductFilter = (query) => {
 
     const isRangeQuery = RANGE_QUERY.includes(item);
     const isIdQuery = ID_QUERY.includes(item);
-    const param = isRangeQuery ? rangeQuery(query[item]) : multipleSearchQuery(item, query[item], isIdQuery);
+    const param = isRangeQuery
+      ? rangeQuery(query[item])
+      : multipleSearchQuery(item, query[item], isIdQuery);
 
     filter = Object.assign(filter, param);
   });
 
   return filter;
-}
+};
 
 // GET method
 const getProducts = async (req, res) => {
@@ -121,11 +133,17 @@ const getProducts = async (req, res) => {
   const paginationPipeline = getPaginationPipeline(pageParam, limitParam);
 
   try {
-    const products = await Products.aggregate([...aggregationPipeline, ...paginationPipeline]).exec();
-    const count = await Products.aggregate([...aggregationPipeline, { $count: "count" }]).exec();
+    const products = await Products.aggregate([
+      ...aggregationPipeline,
+      ...paginationPipeline,
+    ]).exec();
+    const count = await Products.aggregate([
+      ...aggregationPipeline,
+      { $count: 'count' },
+    ]).exec();
 
-    if (!products || !count) {
-      res.status(404).json({ error: "Not found" })
+    if (products && !products.length) {
+      return res.json({ products, count: 0 });
     }
 
     res.json({ products, count: count[0].count });
@@ -143,7 +161,7 @@ async function findProductById(req, res, next) {
     product = await Products.findById(id).exec();
 
     if (!product) {
-      return res.status(400).json({ message: 'Product not found'})
+      return res.status(400).json({ message: 'Product not found' });
     }
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -151,7 +169,7 @@ async function findProductById(req, res, next) {
 
   req.product = product;
   next();
-};
+}
 
 module.exports = {
   getProduct,
@@ -160,5 +178,5 @@ module.exports = {
   updateProduct,
   removeProduct,
   findProductById,
-  getMockedProducts
+  getMockedProducts,
 };
